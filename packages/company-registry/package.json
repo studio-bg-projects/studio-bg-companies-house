@@ -1,9 +1,9 @@
 {
-  "name": "company-guru",
+  "name": "company-registry",
   "version": "1.0.0",
-  "description": "Company Guru Scaper",
+  "description": "Company Registry",
   "scripts": {
-    "get-guru-all-companies": "nodemon src/get-guru-all-companies.ts"
+    "split-companies": "nodemon src/split-companies.ts"
   },
   "author": "Studio.bg",
   "license": "ISC",
