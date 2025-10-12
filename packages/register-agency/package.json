@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Register Agency",
   "scripts": {
-    "split-companies": "nodemon src/split-companies.ts"
+    "fill-companies-from-xml": "nodemon src/fill-companies-from-xml.ts"
   },
   "author": "Studio.bg",
   "license": "ISC",

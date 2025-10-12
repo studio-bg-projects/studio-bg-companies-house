@@ -4,16 +4,91 @@ import { config } from './config';
 export class Storage {
   protected conn: mysql.Connection | null = null;
 
-  async addParsedFile(file: string): Promise<void> {
+  async parsedFileAdd(fileName: string): Promise<void> {
     const db = await this.getDb();
 
     await db.execute(`
       INSERT INTO
-        \`parsedXmls\`
+        \`registerAgencyParsedFiles\`
       SET
-        \`file\` = :file
+        \`fileName\` = :fileName
     `, {
-      file,
+      fileName,
+    });
+  }
+
+  async parsedFileGet(fileName: string): Promise<any> {
+    const db = await this.getDb();
+
+    const stm = <any>await db.execute(`
+      SELECT
+        *
+      FROM
+        \`registerAgencyParsedFiles\`
+      WHERE
+        \`fileName\` = :fileName
+      LIMIT 1
+    `, {
+      fileName,
+    });
+
+    const rs = stm?.[0]?.[0];
+
+    return rs || null;
+  }
+
+  async companyAdd(data: any): Promise<void> {
+    const db = await this.getDb();
+
+    await db.execute(`
+        INSERT INTO
+          \`registerAgencyCompanies\`
+        (
+          \`uic\`,
+          \`deeds\`
+        ) VALUES (
+          :uic,
+          :deeds
+        )
+      `, {
+      uic: data.uic,
+      deeds: JSON.stringify(data.deeds),
+    });
+  }
+
+  async companyGet(uic: string): Promise<any> {
+    const db = await this.getDb();
+
+    const stm = <any>await db.execute(`
+      SELECT
+        *
+      FROM
+        \`registerAgencyCompanies\`
+      WHERE
+        \`uic\` = :uic
+      LIMIT 1
+    `, {
+      uic,
+    });
+
+    const rs = stm?.[0]?.[0];
+
+    return rs || null;
+  }
+
+  async companyDeedSet(uic: string, deeds: []): Promise<any> {
+    const db = await this.getDb();
+
+    await db.execute(`
+        UPDATE
+          \`registerAgencyCompanies\`
+        SET
+          \`deeds\` = :deeds
+        WHERE
+          \`uic\` = :uic
+      `, {
+      uic,
+      deeds: JSON.stringify(deeds),
     });
   }
 
@@ -28,49 +103,21 @@ export class Storage {
         password: config.mysql.password,
       });
 
-      // Cache
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`_cacheRequest\`  (
-          \`hash\` varchar(50) NOT NULL,
-          \`response\` json NOT NULL,
-          PRIMARY KEY (\`hash\`)
+        CREATE TABLE IF NOT EXISTS \`registerAgencyParsedFiles\`  (
+          \`fileName\` varchar(255) NOT NULL,
+          \`dateAdded\` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (\`fileName\`)
         );
-      `);
+    `);
 
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`_cacheContinues\`  (
-          \`key\` varchar(100) NOT NULL,
-          \`date\` date NOT NULL,
-          PRIMARY KEY (\`key\`)
+        CREATE TABLE IF NOT EXISTS \`registerAgencyCompanies\`  (
+          \`uic\` varchar(15) NOT NULL,
+          \`deeds\` json NOT NULL,
+          PRIMARY KEY (\`uic\`)
         );
-      `);
-
-      // Companies
-      await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`guruCompanies\`  (
-          \`companyId\` varchar(100) NOT NULL,
-          \`data\` json NULL,
-          PRIMARY KEY (\`companyId\`)
-        );
-      `);
-
-      await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`guruMainActivity\`  (
-          \`cid\` int NOT NULL,
-          \`bg\` varchar(100) NOT NULL,
-          \`en\` varchar(100) NOT NULL,
-          \`code\` varchar(100) NOT NULL,
-          PRIMARY KEY (\`cid\`)
-        );
-      `);
-
-      await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`brraCompanies\`  (
-          \`companyId\` varchar(100) NOT NULL,
-          \`data\` json NULL,
-          PRIMARY KEY (\`companyId\`)
-        );
-      `);
+    `);
     }
 
     return this.conn;

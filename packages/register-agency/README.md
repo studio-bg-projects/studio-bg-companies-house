@@ -1,38 +1,10 @@
-# Команди
-
-## @todo
-
-След като имаш всички файлове, виж дали има повтарящи се имена (покажи всички, реплиис всичко преди "/" виж уникалните
-линии) ако са уникални махни префикса
-
-## Рекурсивно разархивиране на всички zip файлове (директория BRRA-ZIP)
-
-```shell
-find ./BRRA-ZIP -type f -name "*.zip" -exec sh -c 'for f; do dir="$(dirname "$f")/$(basename "$f" .zip)"; if [ -d "$dir" ] && [ "$(ls -A "$dir")" ]; then echo "Пропускане (вече разархивирано): $dir"; continue; fi; mkdir -p "$dir"; echo "Разархивиране в $dir"; unzip -o "$f" -d "$dir"; done' sh {} +
-```
-
-## Премести всички XML в една директория, като им слага уникален префикс (директория BRRA-XML)
-
-```shell
-mkdir -p ./BRRA-XML && find ./BRRA-ZIP -type f -name "*.xml" -exec sh -c 'for f; do dest="./BRRA-XML/$(basename "$f")"; if [ -e "$dest" ]; then dest="./BRRA-XML/$(date +%s)_$(basename "$f")"; fi; mv "$f" "$dest"; done' sh {} +
-```
-
-## XML to JSON (директория BRRA-JSON)
-
-```shell
-npm install -g xml-js
-mkdir -p ./BRRA-JSON && for f in ./BRRA-XML/*.xml; do base=$(basename "$f" .xml); out="./BRRA-JSON/${base}.json"; if [ -f "$out" ]; then echo "Пропускане (вече съществува): $out"; continue; fi; echo "Обработка: $f → $out"; xml-js "$f" --compact --spaces 2 > "$out"; done
-```
-
-## Търсене на стринг из файловете
-
-```shell
-find ./BRRA-XML -type f -name "*.xml" -print0 | while IFS= read -r -d '' f; do echo "Searching: $f"; if grep -nH --color=never -F "202413291" "$f"; then echo "--> FOUND in: $f"; else echo "Not found in: $f"; fi; done
-```
-
 # Файлове
 
-Свали някак всички XML-ли и зипове и ги постави в една директория (BRRA-ZIP)
+Свали някак всички XML-ли и зипове и ги постави в една директория: [.xml-data](.xml-data)
+Ако има зип файлове, ги разархивирай рекурсивно: 
+```shell
+find ./.xml-data -type f -name "*.zip" -exec sh -c 'for f; do dir="$(dirname "$f")/$(basename "$f" .zip)"; if [ -d "$dir" ] && [ "$(ls -A "$dir")" ]; then echo "Пропускане (вече разархивирано): $dir"; continue; fi; mkdir -p "$dir"; echo "Разархивиране в $dir"; unzip -o "$f" -d "$dir"; done' sh {} +
+```
 
 ```javascript
 (async () => {
@@ -162,3 +134,36 @@ X https://data.egov.bg/organisation/dataset/6ebd065b-189b-47cc-88cc-dcae0f6fc482
 ## Търговски регистър 2008 г.
 
 X https://data.egov.bg/organisation/dataset/22226afe-d7b8-4770-95ba-608ea76a8375
+
+# Други
+
+## @todo
+
+След като имаш всички файлове, виж дали има повтарящи се имена (покажи всички, реплиис всичко преди "/" виж уникалните
+линии) ако са уникални махни префикса
+
+## Рекурсивно разархивиране на всички zip файлове (директория BRRA-ZIP)
+
+```shell
+find ./BRRA-ZIP -type f -name "*.zip" -exec sh -c 'for f; do dir="$(dirname "$f")/$(basename "$f" .zip)"; if [ -d "$dir" ] && [ "$(ls -A "$dir")" ]; then echo "Пропускане (вече разархивирано): $dir"; continue; fi; mkdir -p "$dir"; echo "Разархивиране в $dir"; unzip -o "$f" -d "$dir"; done' sh {} +
+```
+
+## Премести всички XML в една директория, като им слага уникален префикс (директория BRRA-XML)
+
+```shell
+mkdir -p ./BRRA-XML && find ./BRRA-ZIP -type f -name "*.xml" -exec sh -c 'for f; do dest="./BRRA-XML/$(basename "$f")"; if [ -e "$dest" ]; then dest="./BRRA-XML/$(date +%s)_$(basename "$f")"; fi; mv "$f" "$dest"; done' sh {} +
+```
+
+## XML to JSON (директория BRRA-JSON)
+
+```shell
+npm install -g xml-js
+mkdir -p ./BRRA-JSON && for f in ./BRRA-XML/*.xml; do base=$(basename "$f" .xml); out="./BRRA-JSON/${base}.json"; if [ -f "$out" ]; then echo "Пропускане (вече съществува): $out"; continue; fi; echo "Обработка: $f → $out"; xml-js "$f" --compact --spaces 2 > "$out"; done
+```
+
+## Търсене на стринг из файловете
+
+```shell
+find ./BRRA-XML -type f -name "*.xml" -print0 | while IFS= read -r -d '' f; do echo "Searching: $f"; if grep -nH --color=never -F "202413291" "$f"; then echo "--> FOUND in: $f"; else echo "Not found in: $f"; fi; done
+```
+

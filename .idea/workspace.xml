@@ -4,31 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4290182-6600-4f09-8508-a8b24dcc1de6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/register-agency/src/split-companies.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/company-registry.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/company-registry.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/.env.example" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/get-guru-by-main-activity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/get-guru-by-main-activity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/lib/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/lib/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/lib/guru-base.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/lib/guru-base.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/lib/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/lib/storage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/load-brra-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/load-brra-data.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/.env.example" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/src/split-companies.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/company-registry/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/tsconfig.json" afterDir="false" />
+    <list default="true" id="e4290182-6600-4f09-8508-a8b24dcc1de6" name="Changes" comment="Project refactor">
+      <change afterPath="$PROJECT_DIR$/packages/register-agency/src/fill-companies-from-xml.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/register-agency/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/register-agency/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/register-agency/src/lib/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/src/lib/storage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/register-agency/src/split-companies.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +54,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "Errors",
+    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
     "ts.external.directory.path": "\\\\wsl.localhost\\Ubuntu\\mnt\\data\\workspace\\services\\studio-bg\\company-registry\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -98,8 +80,17 @@
       <option name="presentableId" value="Default" />
       <updated>1760210905901</updated>
       <workItem from="1760210908969" duration="27000" />
-      <workItem from="1760212185186" duration="4877000" />
+      <workItem from="1760212185186" duration="9033000" />
     </task>
+    <task id="LOCAL-00001" summary="Project refactor">
+      <option name="closed" value="true" />
+      <created>1760265034534</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760265034534</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,10 +101,28 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Project refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project refactor" />
   </component>
 </project>
