@@ -2,7 +2,8 @@
 
 ## @todo
 
-След като имаш всички файлове, виж дали има повтарящи се имена (покажи всички, реплиис всичко преди "/" виж уникалните линии) ако са уникални махни префикса
+След като имаш всички файлове, виж дали има повтарящи се имена (покажи всички, реплиис всичко преди "/" виж уникалните
+линии) ако са уникални махни префикса
 
 ## Рекурсивно разархивиране на всички zip файлове (директория BRRA-ZIP)
 
@@ -13,7 +14,7 @@ find ./BRRA-ZIP -type f -name "*.zip" -exec sh -c 'for f; do dir="$(dirname "$f"
 ## Премести всички XML в една директория, като им слага уникален префикс (директория BRRA-XML)
 
 ```shell
-mkdir -p ./BRRA-XML && find ./BRRA-ZIP -type f -name "*.xml" -exec sh -c 'for f; do prefix=$(basename "$(dirname "$f")"); dest="./BRRA-XML/${prefix}_$(basename "$f")"; if [ -e "$dest" ]; then dest="./BRRA-XML/${prefix}_$(date +%s)_$(basename "$f")"; fi; mv "$f" "$dest"; done' sh {} +
+mkdir -p ./BRRA-XML && find ./BRRA-ZIP -type f -name "*.xml" -exec sh -c 'for f; do dest="./BRRA-XML/$(basename "$f")"; if [ -e "$dest" ]; then dest="./BRRA-XML/$(date +%s)_$(basename "$f")"; fi; mv "$f" "$dest"; done' sh {} +
 ```
 
 ## XML to JSON (директория BRRA-JSON)
@@ -33,37 +34,78 @@ find ./BRRA-XML -type f -name "*.xml" -print0 | while IFS= read -r -d '' f; do e
 
 Свали някак всички XML-ли и зипове и ги постави в една директория (BRRA-ZIP)
 
-## Търговски регистър (latest)
+```javascript
+(async () => {
+  let sections = [
+    {url: 'https://data.egov.bg/organisation/dataset/07dd2a58-f96e-48d9-82c9-9aa0b7513e0e', pages: 100},
+    {url: 'https://data.egov.bg/organisation/dataset/b30521d2-8a3f-48e7-9df6-f99018c2dcae', pages: 7},
+    {url: 'https://data.egov.bg/organisation/dataset/b199b6fe-ded0-4b83-85e3-ea50016596bc', pages: 8},
+    {url: 'https://data.egov.bg/organisation/dataset/b05cf9fa-8cc6-484f-814e-3665b59e971c', pages: 8},
+    {url: 'https://data.egov.bg/organisation/dataset/db3fde9a-c6a4-4e2d-a98f-e81ab30b5a98', pages: 8},
+    {url: 'https://data.egov.bg/organisation/dataset/68b23552-1a71-4eff-ad2b-6389ff5f1954', pages: 8},
+    {url: 'https://data.egov.bg/organisation/dataset/feed3736-815a-44ba-a290-b8927b6616b3', pages: 8},
+  ];
+
+  let links = [];
+
+  for (let i = 0; i < sections.length; i++) {
+    const section = sections[i];
+
+    for (let p = 1; p <= section.pages; p++) {
+      await $.ajax({
+        url: `${section.url}?rpage=${p}`,
+        success: function (response) {
+          const $body = $(response);
+          $body.find('a[href*="https://data.egov.bg/organisation/datasets/resourceView/"]').each(function () {
+            const $link = $(this); 
+            const id = $link.attr('href').replace(/\?.*/, '').replace(/.*\//, '');
+            let fileName = $link.find('.version').text();
+            fileName = fileName.replace(/.*регистър/, '');
+            fileName = fileName.replace('.г', '');
+            fileName = $.trim(fileName);
+            
+            links.push(`wget -O ${fileName}.xml https://data.egov.bg/resource/download/${id}/xml`);
+            links = [...new Set(links)];
+          });
+          console.log(links.join("\n"));
+        },
+      });
+    }
+  }
+})();
+```
+
+## Търговски регистър (latest) (100 стр.)
 
 https://data.egov.bg/organisation/dataset/07dd2a58-f96e-48d9-82c9-9aa0b7513e0e
 
-## Търговски регистър 2022-04-06 г.
+## Търговски регистър 2022-04-06 г. (7 стр.)
 
 https://data.egov.bg/organisation/dataset/b30521d2-8a3f-48e7-9df6-f99018c2dcae
 
-## Търговски регистър 2022-07-09 г.
+## Търговски регистър 2022-07-09 г. (8 стр.)
 
 https://data.egov.bg/organisation/dataset/b199b6fe-ded0-4b83-85e3-ea50016596bc
 
-## Търговски регистър 2022-01-03 г.
+## Търговски регистър 2022-01-03 г. (8 стр.)
 
 https://data.egov.bg/organisation/dataset/b05cf9fa-8cc6-484f-814e-3665b59e971c
 
-## Търговски регистър 2021-10-12 г.
+## Търговски регистър 2021-10-12 г. (8 стр.)
 
 https://data.egov.bg/organisation/dataset/db3fde9a-c6a4-4e2d-a98f-e81ab30b5a98
 
-## Търговски регистър 2021-07-09 г.
+## Търговски регистър 2021-07-09 г. (8 стр.)
 
 https://data.egov.bg/organisation/dataset/68b23552-1a71-4eff-ad2b-6389ff5f1954
 
-## Търговски регистър 2021-04-06 г.
+## Търговски регистър 2021-04-06 г. (8 стр.)
 
 https://data.egov.bg/organisation/dataset/feed3736-815a-44ba-a290-b8927b6616b3
 
 ## Търговски регистър 2021-01-03 г.
 
-https://data.egov.bg/organisation/dataset/f582db02-b1a8-4f9b-b55b-db576034c08c
+X https://data.egov.bg/organisation/dataset/f582db02-b1a8-4f9b-b55b-db576034c08c
 
 ## Търговски регистър 2021-01-03 г.
 

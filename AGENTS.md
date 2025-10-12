@@ -5,4 +5,4 @@
 
 ## Scope
 
-These instructions apply to the entire `company-registry` monorepo unless a nested `AGENTS.md` overrides them.
+These instructions apply to the entire `companies-house` monorepo unless a nested `AGENTS.md` overrides them.

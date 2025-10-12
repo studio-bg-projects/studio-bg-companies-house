@@ -23,10 +23,10 @@ class GetGuruByMainActivity extends GuruBase {
     }
 
     // Save the data
-    await this.storage.guruMainActivitySet(rs.data.mainActivity);
+    await this.storage.mainActivitySet(rs.data.mainActivity);
 
     // Store as class property
-    this.mainActivities = await this.storage.guruMainActivityList();
+    this.mainActivities = await this.storage.mainActivityList();
   }
 
   /**

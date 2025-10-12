@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4290182-6600-4f09-8508-a8b24dcc1de6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/packages/register-agency/src/split-companies.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/company-registry.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/company-registry.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/get-guru-by-main-activity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/get-guru-by-main-activity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/lib/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/lib/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/lib/guru-base.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/lib/guru-base.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/lib/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/lib/storage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-guru/src/load-brra-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/company-guru/src/load-brra-data.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/src/split-companies.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/company-registry/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;agavazov&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/studio-bg-projects/studio-bg-company-registry.git&quot;,
+    &quot;accountId&quot;: &quot;404165e2-d5ce-4e11-a4b9-9bc748988006&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="33vwYiqB1yZgV8PyzWRIsnNBlru" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "//wsl.localhost/Ubuntu/mnt/data/workspace/services/studio-bg/company-registry/packages/company-registry/src/lib",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "Errors",
+    "ts.external.directory.path": "\\\\wsl.localhost\\Ubuntu\\mnt\\data\\workspace\\services\\studio-bg\\company-registry\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu\mnt\data\workspace\services\studio-bg\company-registry\packages\company-registry\src\lib" />
+      <recent name="\\wsl.localhost\Ubuntu\mnt\data\workspace\services\studio-bg\company-registry\packages\company-registry\src" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-WS-252.26830.93" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4290182-6600-4f09-8508-a8b24dcc1de6" name="Changes" comment="" />
+      <created>1760210905901</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1760210905901</updated>
+      <workItem from="1760210908969" duration="27000" />
+      <workItem from="1760212185186" duration="4877000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

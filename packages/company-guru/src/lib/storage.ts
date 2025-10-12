@@ -1,17 +1,16 @@
-import * as process from 'node:process';
 import * as mysql from 'mysql2/promise';
 import { config } from './config';
 
 export class Storage {
   protected conn: mysql.Connection | null = null;
 
-  async guruMainActivitySet(mainActivities: any[]): Promise<void> {
+  async mainActivitySet(mainActivities: any[]): Promise<void> {
     const db = await this.getDb();
 
     for (const item of mainActivities) {
       await db.execute(`
         INSERT IGNORE INTO
-          \`guruMainActivity\`
+          \`companyGuruMainActivity\`
         (
           \`cid\`,
           \`bg\`,
@@ -32,14 +31,14 @@ export class Storage {
     }
   }
 
-  async guruMainActivityList(): Promise<any[]> {
+  async mainActivityList(): Promise<any[]> {
     const db = await this.getDb();
 
     const stm = <any>await db.execute(`
       SELECT
         *
       FROM
-        \`guruMainActivity\`
+        \`companyGuruMainActivity\`
       ORDER BY
         \`code\`
     `);
@@ -54,7 +53,7 @@ export class Storage {
       SELECT
         *
       FROM
-        \`_cacheRequest\`
+        \`_companyGuruCacheRequest\`
       WHERE
         \`hash\` = :hash
       LIMIT 1
@@ -70,7 +69,7 @@ export class Storage {
 
     await db.execute(`
       INSERT INTO
-        \`_cacheRequest\`
+        \`_companyGuruCacheRequest\`
       (
         \`hash\`,
         \`response\`
@@ -91,7 +90,7 @@ export class Storage {
       SELECT
         *
       FROM
-        \`_cacheContinues\`
+        \`_companyGuruCacheContinues\`
       WHERE
         \`key\` = :key
       LIMIT 1
@@ -107,7 +106,7 @@ export class Storage {
 
     await db.execute(`
       INSERT INTO
-        \`_cacheContinues\`
+        \`_companyGuruCacheContinues\`
       (
         \`key\`,
         \`date\`
@@ -121,14 +120,14 @@ export class Storage {
     });
   }
 
-  async guruCompanyGet(companyId: string): Promise<any> {
+  async companyDataGet(companyId: string): Promise<any> {
     const db = await this.getDb();
 
     const stm = <any>await db.execute(`
       SELECT
         *
       FROM
-        \`guruCompanies\`
+        \`companyGuruCompaniesData\`
       WHERE
         \`companyId\` = :companyId
       LIMIT 1
@@ -141,10 +140,10 @@ export class Storage {
     return rs?.data || null;
   }
 
-  async guruCompanySet(companyId: string, data: any): Promise<void> {
+  async companyDataSet(companyId: string, data: any): Promise<void> {
     const db = await this.getDb();
 
-    let existingCompany = await this.guruCompanyGet(companyId);
+    let existingCompany = await this.companyDataGet(companyId);
 
     if (existingCompany) {
       data = {
@@ -158,7 +157,7 @@ export class Storage {
 
       await db.execute(`
         UPDATE
-          \`guruCompanies\`
+          \`companyGuruCompaniesData\`
         SET
           \`data\` = :data
         WHERE
@@ -170,7 +169,7 @@ export class Storage {
     } else {
       await db.execute(`
         INSERT INTO
-          \`guruCompanies\`
+          \`companyGuruCompaniesData\`
         (
           \`companyId\`,
           \`data\`
@@ -185,7 +184,7 @@ export class Storage {
     }
   }
 
-  async brraGetWaitingCompany(): Promise<any> {
+  async getWaitingCompany(): Promise<any> {
     const db = await this.getDb();
 
     const stm = <any>await db.execute(`
@@ -193,10 +192,10 @@ export class Storage {
           \`companyId\`,
           \`data\`
         FROM
-          \`guruCompanies\`
+          \`companyGuruCompaniesData\`
         WHERE
           \`data\`->>'$.status.cid' = 1
-          AND \`companyId\` NOT IN (SELECT \`companyId\` FROM \`brraCompanies\`)
+          AND \`companyId\` NOT IN (SELECT \`companyId\` FROM \`companyGuruCompanies\`)
         ORDER BY
           \`companyId\` DESC
         LIMIT 1
@@ -205,12 +204,12 @@ export class Storage {
     return stm?.[0]?.[0];
   }
 
-  async brraCompaniesAdd(companyId: string, data: any): Promise<void> {
+  async companyAdd(companyId: string, data: any): Promise<void> {
     const db = await this.getDb();
 
     await db.execute(`
       INSERT INTO
-        \`brraCompanies\`
+        \`companyGuruCompanies\`
       SET
         \`companyId\` = :companyId,
         \`data\` = :data
@@ -233,7 +232,7 @@ export class Storage {
 
       // Cache
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`_cacheRequest\`  (
+        CREATE TABLE IF NOT EXISTS \`_companyGuruCacheRequest\`  (
           \`hash\` varchar(50) NOT NULL,
           \`response\` json NOT NULL,
           PRIMARY KEY (\`hash\`)
@@ -241,7 +240,7 @@ export class Storage {
       `);
 
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`_cacheContinues\`  (
+        CREATE TABLE IF NOT EXISTS \`_companyGuruCacheContinues\`  (
           \`key\` varchar(100) NOT NULL,
           \`date\` date NOT NULL,
           PRIMARY KEY (\`key\`)
@@ -250,7 +249,7 @@ export class Storage {
 
       // Companies
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`guruCompanies\`  (
+        CREATE TABLE IF NOT EXISTS \`companyGuruCompaniesData\`  (
           \`companyId\` varchar(100) NOT NULL,
           \`data\` json NULL,
           PRIMARY KEY (\`companyId\`)
@@ -258,7 +257,7 @@ export class Storage {
       `);
 
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`guruMainActivity\`  (
+        CREATE TABLE IF NOT EXISTS \`companyGuruMainActivity\`  (
           \`cid\` int NOT NULL,
           \`bg\` varchar(100) NOT NULL,
           \`en\` varchar(100) NOT NULL,
@@ -268,7 +267,7 @@ export class Storage {
       `);
 
       await this.conn.execute(`
-        CREATE TABLE IF NOT EXISTS \`brraCompanies\`  (
+        CREATE TABLE IF NOT EXISTS \`companyGuruCompanies\`  (
           \`companyId\` varchar(100) NOT NULL,
           \`data\` json NULL,
           PRIMARY KEY (\`companyId\`)

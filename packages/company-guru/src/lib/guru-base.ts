@@ -184,7 +184,7 @@ export abstract class GuruBase {
         item = await dataAppendFn(item);
       }
 
-      await this.storage.guruCompanySet(item.regNo, item);
+      await this.storage.companyDataSet(item.regNo, item);
     }
   }
 

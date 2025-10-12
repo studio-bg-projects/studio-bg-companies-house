@@ -10,7 +10,7 @@ class LoadBrraData extends BrraBase {
    */
   async loadResults() {
     let company = null;
-    while (company = await this.storage.brraGetWaitingCompany()) {
+    while (company = await this.storage.getWaitingCompany()) {
       console.log(`Load company: ${company.companyId} - ${new Date().toJSON()}`);
 
       let data = await this.loadCompanyDeedData(company.companyId);
@@ -20,7 +20,7 @@ class LoadBrraData extends BrraBase {
         data = {uic: null};
       }
 
-      await this.storage.brraCompaniesAdd(company.companyId, data);
+      await this.storage.companyAdd(company.companyId, data);
     }
   }
 }

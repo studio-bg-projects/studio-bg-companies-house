@@ -1,7 +1,7 @@
 {
-  "name": "company-registry",
+  "name": "register-agency",
   "version": "1.0.0",
-  "description": "Company Registry",
+  "description": "Register Agency",
   "scripts": {
     "split-companies": "nodemon src/split-companies.ts"
   },
@@ -11,7 +11,8 @@
     "dotenv": "^17.2.0",
     "moment": "^2.30.1",
     "mysql2": "^3.9.9",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@types/node": "^22.18.6",
