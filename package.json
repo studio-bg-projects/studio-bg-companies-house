@@ -1,12 +1,10 @@
 {
   "name": "companies-house",
-  "version": "0.0.1",
-  "author": "Studio.bg",
-  "private": true,
-  "license": "MIT",
-  "homepage": "https://stduio.bg",
-  "type": "module",
-  "workspaces": [
-    "./packages/*"
-  ]
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true
 }

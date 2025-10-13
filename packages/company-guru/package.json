@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Company Guru Scaper",
   "scripts": {
-    "get-guru-all-companies": "nodemon src/get-guru-all-companies.ts"
+    "get-guru-all-companies": "ts-node src/get-guru-all-companies.ts"
   },
   "author": "Studio.bg",
   "license": "ISC",

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Register Agency",
   "scripts": {
-    "fill-companies-from-xml": "nodemon src/fill-companies-from-xml.ts"
+    "fill-companies-from-xml": "ts-node src/fill-companies-from-xml.ts"
   },
   "author": "Studio.bg",
   "license": "ISC",

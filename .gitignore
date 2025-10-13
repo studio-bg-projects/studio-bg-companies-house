@@ -3,5 +3,6 @@ node_modules/
 /.tmp/
 /.env
 /.volumes/
-/packages/register-agency/.xml-data/
+
 !/packages/register-agency/.xml-data/.gitkeep
+/packages/register-agency/.xml-data/

@@ -9,9 +9,13 @@ dotenv.config();
 class FillCompaniesFromXml {
   async doit() {
     const dir = path.join(process.cwd(), './.xml-data');
+
+    console.log('Start file indexing');
+
     const files = await this.collectXmlFiles(dir);
     const db = new Storage();
 
+    console.log(`Get ${files.length} files`);
     for (const xmlFile of files) {
       await this.parseFile(db, xmlFile);
     }
@@ -38,6 +42,7 @@ class FillCompaniesFromXml {
     let baseName = path.basename(xmlFile);
 
     if (await db.parsedFileGet(baseName)) {
+      console.log(`Skip file ${baseName}`);
       return;
     }
 
