@@ -104,6 +104,7 @@ class FillCompaniesFromXml {
 
         for (const collectId of collects) {
           if (subDeed[collectId]) {
+            subDeed[collectId]._key = collectId;
             data.push(subDeed[collectId]);
           }
         }
