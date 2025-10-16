@@ -76,24 +76,6 @@ class FillCompaniesFromXml {
         continue;
       }
 
-      console.log('uic', uic);
-      let company = await db.companyGet(uic);
-
-      if (!company) {
-        company = {
-          uic,
-          deeds: [],
-        };
-
-        await db.companyAdd(company);
-      }
-
-      company.deeds.push(deed);
-
-      await db.companyDeedSet(company.uic, company.deeds);
-
-      continue;
-
       let incomingPackageInfos = deed?.IncomingPackageInfo;
       let subDeeds = deed?.SubDeed;
 
@@ -105,21 +87,36 @@ class FillCompaniesFromXml {
         subDeeds = [subDeeds];
       }
 
-      // const tmpNumber = incomingPackageInfos?.[0]?._attributes?.IncomingNumber;
+      // Collect data
+      const data: any[] = [];
+      for (const subDeed of subDeeds) {
+        const collects = [
+          'Company',
+          'LegalForm',
+          'Transliteration',
+          'Seat',
+          'SeatForCorrespondence',
+          'SubjectOfActivity',
+          'SubjectOfActivityNKID',
+          'SubjectOfActivityNKID',
+          'Managers',
+        ];
 
-      // const dirParts = [uic.slice(0, 2), uic.slice(2, 4), uic.slice(4, 6), uic.slice(6, 9)].join('/');
+        for (const collectId of collects) {
+          if (subDeed[collectId]) {
+            data.push(subDeed[collectId]);
+          }
+        }
+      }
 
-      // const tmpDir = path.join(dir, `../BRRA-JSON-SORT/${dirParts}/`);
-      // const tmpFile = `${uic}-${tmpNumber}.json`;
+      console.log('uic', uic, data.length);
 
-      // await db.addParsedFile();
-
-      // await fs.mkdir(tmpDir, {
-      //   recursive: true,
-      // });
-      // await fs.writeFile(`${tmpDir}/${tmpFile}`, JSON.stringify(deed, null, 2));
-
-      // console.log(`${tmpDir}/${tmpFile}`);
+      if (data.length > 0) {
+        await db.appendAppend({
+          uic,
+          deeds: data,
+        });
+      }
     }
   }
 }

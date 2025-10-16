@@ -37,6 +37,20 @@ export class Storage {
     return rs || null;
   }
 
+  async appendAppend(data: any): Promise<void> {
+    const db = await this.getDb();
+
+    await db.execute(`
+      INSERT INTO registerAgencyCompanies (uic, deeds)
+      VALUES (:uic, :deeds)
+      ON DUPLICATE KEY UPDATE
+      deeds = JSON_MERGE_PRESERVE(deeds, VALUES(deeds));
+    `, {
+      uic: data.uic,
+      deeds: JSON.stringify(data.deeds),
+    });
+  }
+
   async companyAdd(data: any): Promise<void> {
     const db = await this.getDb();
 
