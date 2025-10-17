@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb48af22-db51-4452-b004-237ddbe5b07f" name="Changes" comment="Collect only things I need">
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+    <list default="true" id="fb48af22-db51-4452-b004-237ddbe5b07f" name="Changes" comment="Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/register-agency/NOTES.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/NOTES.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/register-agency/src/fill-companies-from-xml.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/src/fill-companies-from-xml.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/register-agency/src/lib/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/register-agency/src/lib/storage.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +69,8 @@
       <option name="presentableId" value="Default" />
       <updated>1760339557511</updated>
       <workItem from="1760339558806" duration="2160000" />
-      <workItem from="1760634423000" duration="414000" />
+      <workItem from="1760634423000" duration="730000" />
+      <workItem from="1760683472445" duration="3483000" />
     </task>
     <task id="LOCAL-00001" summary="Update">
       <option name="closed" value="true" />
@@ -88,7 +88,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760616275262</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Update">
+      <option name="closed" value="true" />
+      <created>1760635077746</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1760635077746</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,8 +114,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update" />
     <MESSAGE value="Collect only things I need" />
-    <option name="LAST_COMMIT_MESSAGE" value="Collect only things I need" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
 </project>

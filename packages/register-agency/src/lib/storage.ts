@@ -37,21 +37,21 @@ export class Storage {
     return rs || null;
   }
 
-  async appendAppend(data: any): Promise<void> {
+  async appendAppend(params: any): Promise<void> {
     const db = await this.getDb();
 
     await db.execute(`
-      INSERT INTO registerAgencyCompanies (uic, deeds)
-      VALUES (:uic, :deeds)
+      INSERT INTO registerAgencyCompanies (uic, data)
+      VALUES (:uic, :data)
       ON DUPLICATE KEY UPDATE
-      deeds = JSON_MERGE_PRESERVE(deeds, VALUES(deeds));
+      data = JSON_MERGE_PRESERVE(data, VALUES(data));
     `, {
-      uic: data.uic,
-      deeds: JSON.stringify(data.deeds),
+      uic: params.uic,
+      data: JSON.stringify(params.data),
     });
   }
 
-  async companyAdd(data: any): Promise<void> {
+  async companyAdd(params: any): Promise<void> {
     const db = await this.getDb();
 
     await db.execute(`
@@ -59,14 +59,14 @@ export class Storage {
           \`registerAgencyCompanies\`
         (
           \`uic\`,
-          \`deeds\`
+          \`data\`
         ) VALUES (
           :uic,
-          :deeds
+          :data
         )
       `, {
-      uic: data.uic,
-      deeds: JSON.stringify(data.deeds),
+      uic: params.uic,
+      data: JSON.stringify(params.data),
     });
   }
 
@@ -90,19 +90,19 @@ export class Storage {
     return rs || null;
   }
 
-  async companyDeedSet(uic: string, deeds: []): Promise<any> {
+  async companydataet(uic: string, data: []): Promise<any> {
     const db = await this.getDb();
 
     await db.execute(`
         UPDATE
           \`registerAgencyCompanies\`
         SET
-          \`deeds\` = :deeds
+          \`data\` = :data
         WHERE
           \`uic\` = :uic
       `, {
       uic,
-      deeds: JSON.stringify(deeds),
+      data: JSON.stringify(data),
     });
   }
 
@@ -128,7 +128,7 @@ export class Storage {
       await this.conn.execute(`
         CREATE TABLE IF NOT EXISTS \`registerAgencyCompanies\`  (
           \`uic\` varchar(15) NOT NULL,
-          \`deeds\` json NOT NULL,
+          \`data\` json NOT NULL,
           PRIMARY KEY (\`uic\`)
         );
     `);

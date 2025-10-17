@@ -88,34 +88,33 @@ class FillCompaniesFromXml {
       }
 
       // Collect data
-      const data: any[] = [];
-      for (const subDeed of subDeeds) {
-        const collects = [
-          'Company',
-          'LegalForm',
-          'Transliteration',
-          'Seat',
-          'SeatForCorrespondence',
-          'SubjectOfActivity',
-          'SubjectOfActivityNKID',
-          'SubjectOfActivityNKID',
-          'Managers',
-        ];
+      let data: any[] = [];
+      for (const [subDeedIdx, subDeed] of Object.entries(subDeeds as Record<number, any>)) {
+        const leadingApp = incomingPackageInfos?.[subDeedIdx]?._attributes?.LeadingApp;
+        const fieldEntryNumber = subDeed?._attributes?.FieldEntryNumber;
 
-        for (const collectId of collects) {
-          if (subDeed[collectId]) {
-            subDeed[collectId]._key = collectId;
-            data.push(subDeed[collectId]);
+        if (leadingApp !== 'A4') {
+          continue;
+        }
+
+        for (const [dataKey, dataValue] of Object.entries(subDeed as Record<string, any>)) {
+          if (dataKey === '_attributes') {
+            continue;
           }
+
+          dataValue._fieldEntryNumber = fieldEntryNumber;
+          dataValue._key = dataKey;
+
+          data.push(dataValue);
         }
       }
 
-      console.log('uic', uic, data.length);
-
       if (data.length > 0) {
+        console.log('uic', uic);
+
         await db.appendAppend({
           uic,
-          deeds: data,
+          data,
         });
       }
     }
