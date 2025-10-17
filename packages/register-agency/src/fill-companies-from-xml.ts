@@ -76,6 +76,18 @@ class FillCompaniesFromXml {
         continue;
       }
 
+      let hasChanges = [];
+      let company = await db.companyGet(uic);
+
+      if (!company) {
+        company = {
+          uic,
+          data: {},
+        };
+
+        hasChanges.push('ADD');
+      }
+
       let incomingPackageInfos = deed?.IncomingPackageInfo;
       let subDeeds = deed?.SubDeed;
 
@@ -88,34 +100,32 @@ class FillCompaniesFromXml {
       }
 
       // Collect data
-      let data: any[] = [];
       for (const [subDeedIdx, subDeed] of Object.entries(subDeeds as Record<number, any>)) {
         const leadingApp = incomingPackageInfos?.[subDeedIdx]?._attributes?.LeadingApp;
-        const fieldEntryNumber = subDeed?._attributes?.FieldEntryNumber;
 
         if (leadingApp !== 'A4') {
           continue;
         }
 
-        for (const [dataKey, dataValue] of Object.entries(subDeed as Record<string, any>)) {
-          if (dataKey === '_attributes') {
+        for (const [deedValueKey, deedValue] of Object.entries(subDeed as Record<string, any>)) {
+          if (deedValueKey === '_attributes') {
             continue;
           }
 
-          dataValue._fieldEntryNumber = fieldEntryNumber;
-          dataValue._key = dataKey;
+          const currentEntryNumber = parseInt(company?.data?.[deedValueKey]?._attributes?.FieldEntryNumber);
+          const newEntryNumber = parseInt(deedValue?._attributes?.FieldEntryNumber);
 
-          data.push(dataValue);
+          if (!currentEntryNumber || currentEntryNumber < newEntryNumber) {
+            company.data[deedValueKey] = deedValue;
+
+            hasChanges.push(deedValueKey);
+          }
         }
       }
 
-      if (data.length > 0) {
-        console.log('uic', uic);
-
-        await db.appendAppend({
-          uic,
-          data,
-        });
+      if (hasChanges.length && Object.keys(company.data).length) {
+        console.log(company.uic, hasChanges.join(', '));
+        await db.companyAppend(company);
       }
     }
   }
@@ -125,4 +135,7 @@ class FillCompaniesFromXml {
   const splitter = new FillCompaniesFromXml();
 
   await splitter.doit();
+
+  console.log('BYE BYE :)');
+  process.exit(0);
 })();

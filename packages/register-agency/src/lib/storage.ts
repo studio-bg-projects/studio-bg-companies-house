@@ -37,21 +37,22 @@ export class Storage {
     return rs || null;
   }
 
-  async appendAppend(params: any): Promise<void> {
+  async companyAppend(company: any): Promise<void> {
     const db = await this.getDb();
 
     await db.execute(`
       INSERT INTO registerAgencyCompanies (uic, data)
       VALUES (:uic, :data)
       ON DUPLICATE KEY UPDATE
-      data = JSON_MERGE_PRESERVE(data, VALUES(data));
+      data = VALUES(data);
+      -- data = JSON_MERGE_PRESERVE(data, VALUES(data));
     `, {
-      uic: params.uic,
-      data: JSON.stringify(params.data),
+      uic: company.uic,
+      data: JSON.stringify(company.data),
     });
   }
 
-  async companyAdd(params: any): Promise<void> {
+  async companyAdd(company: any): Promise<void> {
     const db = await this.getDb();
 
     await db.execute(`
@@ -65,8 +66,8 @@ export class Storage {
           :data
         )
       `, {
-      uic: params.uic,
-      data: JSON.stringify(params.data),
+      uic: company.uic,
+      data: JSON.stringify(company.data),
     });
   }
 
@@ -90,7 +91,7 @@ export class Storage {
     return rs || null;
   }
 
-  async companydataet(uic: string, data: []): Promise<any> {
+  async companyDataSet(uic: string, data: []): Promise<any> {
     const db = await this.getDb();
 
     await db.execute(`
