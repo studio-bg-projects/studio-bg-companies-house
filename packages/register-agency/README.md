@@ -36,7 +36,7 @@ find ./.xml-data -type f -name "*.zip" -exec sh -c 'for f; do dir="$(dirname "$f
             fileName = fileName.replace('.г', '');
             fileName = $.trim(fileName);
             
-            links.push(`[ -s "18.02.2025.xml" ] || sleep 2; wget --no-check-certificate -O "${fileName}.xml" "https://data.egov.bg/resource/download/${id}/xml"`);
+            links.push(`[ -s "${fileName}.xml" ] || sleep 2; wget --no-check-certificate -O "${fileName}.xml" "https://data.egov.bg/resource/download/${id}/xml"`);
             links = [...new Set(links)];
           });
           console.log(links.join("\n"));
