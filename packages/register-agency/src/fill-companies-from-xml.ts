@@ -48,8 +48,6 @@ class FillCompaniesFromXml {
       return;
     }
 
-    await db.parsedFileAdd(baseName);
-
     // Parse
     let deeds;
 
@@ -130,6 +128,8 @@ class FillCompaniesFromXml {
         await db.companyAppend(company);
       }
     }
+
+    await db.parsedFileAdd(baseName);
   }
 }
 
