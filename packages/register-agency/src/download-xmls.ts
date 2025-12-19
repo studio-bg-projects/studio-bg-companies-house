@@ -22,6 +22,8 @@ export class DownloadXmls {
 
       const filePath = path.join(this.dir, fileName);
 
+      console.log(`#${this.urls.length - i}`);
+
       if (await this.fileExists(filePath)) {
         console.log(`⏭ Пропускам (вече съществува): ${fileName}`);
         continue;
@@ -30,7 +32,7 @@ export class DownloadXmls {
       await this.safeUnlink(filePath + '.part');
 
       try {
-        console.log(`⬇ Свалям: ${fileName} - остават ${this.urls.length - i}`);
+        console.log(`⬇ Свалям: ${fileName}`);
         await this.downloadToFile(url, filePath);
         console.log(`✅ Готово: ${fileName}`);
       } catch (err) {
