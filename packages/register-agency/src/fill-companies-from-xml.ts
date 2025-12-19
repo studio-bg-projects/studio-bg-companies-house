@@ -41,6 +41,8 @@ class FillCompaniesFromXml {
     // Check is parsed
     let baseName = path.basename(xmlFile);
 
+    console.log(`>>> Parse file ${baseName}`);
+
     if (await db.parsedFileGet(baseName)) {
       console.log(`Skip file ${baseName}`);
       return;
