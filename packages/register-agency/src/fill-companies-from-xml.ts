@@ -129,6 +129,7 @@ class FillCompaniesFromXml {
       }
     }
 
+
     await db.parsedFileAdd(baseName);
   }
 }
