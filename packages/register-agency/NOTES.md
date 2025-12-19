@@ -1,5 +1,7 @@
 Total records: 1 361 701
 
+Махни неактивните компании: https://papagal.bg/eik/200021270/de6c
+
 ```txt
 UPDATE `companies` AS `c` JOIN `registerAgencyCompanies` AS `rac` ON (`c`.`uic` = `rac`.`uic`) SET
   `c`.`entryDate` = JSON_UNQUOTE(JSON_EXTRACT(`rac`.`data`, '$.UIC._attributes.FieldEntryDate')),
