@@ -21,9 +21,9 @@ UPDATE `companies` AS `c` JOIN `registerAgencyCompanies` AS `rac` ON (`c`.`uic` 
     ELSE 'N/A'
   END,
   `c`.`disctrict` = NULLIF(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Address.District._text')), ''),
-  `c`.`url` = NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Contacts.URL._text')), 1, 250), ''),
-  `c`.`email` = NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Contacts.EMail._text')), 1, 250), ''),
-  `c`.`phone` = NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Contacts.Phone._text')), 1, 250), ''),
+  `c`.`url` = LOWER(NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Contacts.URL._text')), 1, 250), '')),
+  `c`.`email` = LOWER(NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Contacts.EMail._text')), 1, 250), '')),
+  `c`.`phone` = REPLACE(NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Seat.Contacts.Phone._text')), 1, 250), ''), ' ', ''),
   `c`.`nkidCode` = NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.SubjectOfActivityNKID._attributes.codeNkid')), 1, 15), ''),
   `c`.`nkidText` = NULLIF(SUBSTR(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.SubjectOfActivityNKID._attributes.textNkid')), 1, 250), ''),
   `c`.`nkidId` = 
@@ -33,8 +33,13 @@ UPDATE `companies` AS `c` JOIN `registerAgencyCompanies` AS `rac` ON (`c`.`uic` 
       THEN JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.SubjectOfActivityNKID._attributes.idNkid'))
       ELSE NULL
     END AS UNSIGNED
-  )
-# WHERE `c`.`uic` = '000001141';
+  ),
+  `c`.`managers` = COALESCE(
+    CONCAT('[', JSON_EXTRACT(`data`, UPPER('$.Managers.Manager.Person.Name._text')), ']'), # Single
+    JSON_EXTRACT(`data`, UPPER('$.Managers.Manager[*].Person.Name._text')) # Many
+  ),
+  `c`.`isActive` = IF(LENGTH(JSON_EXTRACT(`data`, '$.AddemptionOfTrader')) > 1, 0, 1)
+# WHERE `c`.`uic` = '115627522';
 ```
 
 ## Липсващи файлове
