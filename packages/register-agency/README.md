@@ -6,7 +6,8 @@
 ```javascript
 (async () => {
   let sections = [
-    {url: 'https://data.egov.bg/organisation/dataset/07dd2a58-f96e-48d9-82c9-9aa0b7513e0e', pages: 100},
+    // @TODO - нямам списъка за 2026
+    {url: 'https://data.egov.bg/organisation/dataset/07dd2a58-f96e-48d9-82c9-9aa0b7513e0e', pages: 110},
     {url: 'https://data.egov.bg/organisation/dataset/0dc1b39e-ac70-4b3d-bd50-f57ccf12646a', pages: 6},
     {url: 'https://data.egov.bg/organisation/dataset/34b81b5a-3d78-43ce-ad92-5395109a2353', pages: 1},
     {url: 'https://data.egov.bg/organisation/dataset/39c760e4-d073-42d4-a626-1b339ec50316', pages: 1},

@@ -144,6 +144,15 @@ export class DownloadXmls {
 (async () => {
   // Последно свален файл: Търговски регистър 18.12.2025
   const urls = [
+    'https://data.egov.bg/resource/download/b48f761e-1022-42e6-b037-7bd57e1fcc5f/xml',
+    'https://data.egov.bg/resource/download/2bc4cf17-d2a9-47ef-bfb6-c8206dcee16e/xml',
+    'https://data.egov.bg/resource/download/cd11e77b-ec5a-4c50-8fea-be4a9083ecfd/xml',
+    'https://data.egov.bg/resource/download/e404608f-670b-4cd9-9082-5546f62071c8/xml',
+    'https://data.egov.bg/resource/download/6495de91-bb19-4db7-ba99-ef73df8918dc/xml',
+    'https://data.egov.bg/resource/download/35920f15-0292-43a2-bd4c-9c9246164516/xml',
+    'https://data.egov.bg/resource/download/af03de04-db10-4d8d-a4e6-048954e18c40/xml',
+    'https://data.egov.bg/resource/download/246d0975-5a5e-4268-a43e-fe3f3fcefe02/xml',
+    'https://data.egov.bg/resource/download/d4c011b3-23f5-4e3a-8841-47d0f58d277a/xml',
     'https://data.egov.bg/resource/download/51782df3-2456-486e-b82a-e37c7168b775/xml',
     'https://data.egov.bg/resource/download/4388ec31-eae1-42a9-8eb0-542d87266166/xml',
     'https://data.egov.bg/resource/download/f09b2c56-9d38-469f-b2d5-7a0f3778a4c4/xml',
@@ -1701,7 +1710,6 @@ export class DownloadXmls {
     'https://data.egov.bg/resource/download/9d35c80d-2368-48cf-92da-e10c61fe95da/xml',
     'https://data.egov.bg/resource/download/4e118d6c-e278-494a-a174-4f0ab13e7c18/xml',
   ];
-
 
   const dir = path.join(process.cwd(), './.xml-data');
 

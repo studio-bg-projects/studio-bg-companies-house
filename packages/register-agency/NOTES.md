@@ -3,6 +3,10 @@ Total records: 1 361 701
 Махни неактивните компании: https://papagal.bg/eik/200021270/de6c
 
 ```txt
+INSERT IGNORE INTO `companies` (`uic`) (SELECT `uic` FROM `registerAgencyCompanies`);
+```
+
+```txt
 UPDATE `companies` AS `c` JOIN `registerAgencyCompanies` AS `rac` ON (`c`.`uic` = `rac`.`uic`) SET
   `c`.`entryDate` = JSON_UNQUOTE(JSON_EXTRACT(`rac`.`data`, '$.UIC._attributes.FieldEntryDate')),
   `c`.`name` = JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.Company._text')),
@@ -34,10 +38,10 @@ UPDATE `companies` AS `c` JOIN `registerAgencyCompanies` AS `rac` ON (`c`.`uic` 
       ELSE NULL
     END AS UNSIGNED
   ),
-  `c`.`managers` = COALESCE(
-    CONCAT('[', JSON_EXTRACT(`data`, UPPER('$.Managers.Manager.Person.Name._text')), ']'), # Single
-    JSON_EXTRACT(`data`, UPPER('$.Managers.Manager[*].Person.Name._text')) # Many
-  ),
+  `c`.`managers` = UPPER(COALESCE(
+    CONCAT('[', JSON_EXTRACT(`data`, '$.Managers.Manager.Person.Name._text'), ']'), # Single
+    JSON_EXTRACT(`data`, '$.Managers.Manager[*].Person.Name._text') # Many
+  )),
   `c`.`isActive` = IF(LENGTH(JSON_EXTRACT(`data`, '$.AddemptionOfTrader')) > 1, 0, 1)
 # WHERE `c`.`uic` = '115627522';
 ```
