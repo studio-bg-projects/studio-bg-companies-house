@@ -38,10 +38,10 @@ UPDATE `companies` AS `c` JOIN `registerAgencyCompanies` AS `rac` ON (`c`.`uic` 
       ELSE NULL
     END AS UNSIGNED
   ),
-  `c`.`managers` = UPPER(COALESCE(
+  `c`.`managers` = COALESCE(
     CONCAT('[', JSON_EXTRACT(`data`, '$.Managers.Manager.Person.Name._text'), ']'), # Single
     JSON_EXTRACT(`data`, '$.Managers.Manager[*].Person.Name._text') # Many
-  )),
+  ),
   `c`.`isActive` = IF(LENGTH(JSON_EXTRACT(`data`, '$.AddemptionOfTrader')) > 1, 0, 1)
 # WHERE `c`.`uic` = '115627522';
 ```
